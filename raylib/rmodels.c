@@ -4300,10 +4300,13 @@ Model LoadOBJ(const char *fileName, const char *objText)
         return model;
     }
 
-    char currentDir[1024] = { 0 };
-    strcpy(currentDir, GetWorkingDirectory()); // Save current working directory
-    const char *workingDir = GetDirectoryPath(fileName); // Switch to OBJ directory for material path correctness
-    if (CHDIR(workingDir) != 0) TRACELOG(LOG_WARNING, "MODEL: [%s] Failed to change working directory", workingDir);
+	char currentDir[1024] = {0};
+	
+	if(fileName != NULL) {	
+		strcpy(currentDir, GetWorkingDirectory()); // Save current working directory
+		const char *workingDir = GetDirectoryPath(fileName); // Switch to OBJ directory for material path correctness
+		if (CHDIR(workingDir) != 0) TRACELOG(LOG_WARNING, "MODEL: [%s] Failed to change working directory", workingDir);
+	}
 
     unsigned int dataSize = (unsigned int)strlen(fileText);
 
