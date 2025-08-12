@@ -1,4 +1,4 @@
-module github.com/gen2brain/raylib-go/raylib
+module github.com/j4d3blooded/raylib-go/raylib
 
 go 1.21
 
