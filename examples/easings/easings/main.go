@@ -3,9 +3,9 @@ package main
 import (
 	"strings"
 
-	"github.com/gen2brain/raylib-go/easings"
-	"github.com/gen2brain/raylib-go/raygui"
-	rl "github.com/gen2brain/raylib-go/raylib"
+	"github.com/j4d3blooded/raylib-go/easings"
+	"github.com/j4d3blooded/raylib-go/raygui"
+	rl "github.com/j4d3blooded/raylib-go/raylib"
 )
 
 func main() {

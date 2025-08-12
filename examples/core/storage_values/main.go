@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"os"
 
-	rl "github.com/gen2brain/raylib-go/raylib"
+	rl "github.com/j4d3blooded/raylib-go/raylib"
 )
 
 const (

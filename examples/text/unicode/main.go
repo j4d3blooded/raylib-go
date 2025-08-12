@@ -19,7 +19,7 @@ import (
 	"unicode/utf8"
 	"unsafe"
 
-	rl "github.com/gen2brain/raylib-go/raylib"
+	rl "github.com/j4d3blooded/raylib-go/raylib"
 )
 
 const (

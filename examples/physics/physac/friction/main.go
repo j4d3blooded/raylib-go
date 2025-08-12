@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/gen2brain/raylib-go/physics"
-	"github.com/gen2brain/raylib-go/raylib"
+	"github.com/j4d3blooded/raylib-go/physics"
+	rl "github.com/j4d3blooded/raylib-go/raylib"
 )
 
 func main() {
