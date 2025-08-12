@@ -147,7 +147,7 @@
 // Module specific Functions Declaration
 //----------------------------------------------------------------------------------
 #if defined(SUPPORT_FILEFORMAT_OBJ)
-static Model LoadOBJ(const char *fileName);     // Load OBJ mesh data
+// static Model LoadOBJ(const char *fileName, const char *objText);     // Load OBJ mesh data
 #endif
 #if defined(SUPPORT_FILEFORMAT_IQM)
 static Model LoadIQM(const char *fileName);     // Load IQM mesh data
@@ -1099,7 +1099,7 @@ Model LoadModel(const char *fileName)
     Model model = { 0 };
 
 #if defined(SUPPORT_FILEFORMAT_OBJ)
-    if (IsFileExtension(fileName, ".obj")) model = LoadOBJ(fileName);
+    if (IsFileExtension(fileName, ".obj")) model = LoadOBJ(fileName, NULL);
 #endif
 #if defined(SUPPORT_FILEFORMAT_IQM)
     if (IsFileExtension(fileName, ".iqm")) model = LoadIQM(fileName);
@@ -4276,7 +4276,7 @@ static void BuildPoseFromParentJoints(BoneInfo *bones, int boneCount, Transform 
 //  - A mesh is created for every material present in the obj file
 //  - the model.meshCount is therefore the materialCount returned from tinyobj
 //  - the mesh is automatically triangulated by tinyobj
-static Model LoadOBJ(const char *fileName)
+Model LoadOBJ(const char *fileName, const char *objText)
 {
     tinyobj_attrib_t objAttributes = { 0 };
     tinyobj_shape_t *objShapes = NULL;
@@ -4288,7 +4288,11 @@ static Model LoadOBJ(const char *fileName)
     Model model = { 0 };
     model.transform = MatrixIdentity();
 
-    char *fileText = LoadFileText(fileName);
+	char *fileText;
+
+	if (objText == NULL) {
+		char *fileText = LoadFileText(fileName);
+	}
 
     if (fileText == NULL)
     {

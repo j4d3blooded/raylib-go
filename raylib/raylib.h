@@ -1563,6 +1563,7 @@ RLAPI Model LoadModelFromMesh(Mesh mesh);                                       
 RLAPI bool IsModelValid(Model model);                                                       // Check if a model is valid (loaded in GPU, VAO/VBOs)
 RLAPI void UnloadModel(Model model);                                                        // Unload model (including meshes) from memory (RAM and/or VRAM)
 RLAPI BoundingBox GetModelBoundingBox(Model model);                                         // Compute model bounding box limits (considers all meshes)
+RLAPI Model LoadOBJ(const char *fileName, const char *objText);                             // Expose method to load OBJ model directory
 
 // Model drawing functions
 RLAPI void DrawModel(Model model, Vector3 position, float scale, Color tint);               // Draw a model (with texture if set)

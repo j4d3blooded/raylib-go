@@ -8,6 +8,7 @@ import "C"
 
 import (
 	"image/color"
+	"io"
 	"unsafe"
 )
 
@@ -722,3 +723,48 @@ func GetRayCollisionQuad(ray Ray, p1, p2, p3, p4 Vector3) RayCollision {
 	v := newRayCollisionFromPointer(unsafe.Pointer(&ret))
 	return v
 }
+
+func LoadObjModel(r io.Reader) Model {
+
+	data, err := io.ReadAll(r)
+	if err != nil {
+		return Model{}
+	}
+
+	cText := C.CString(string(data))
+	defer C.free(unsafe.Pointer(cText))
+
+	ret := C.LoadOBJ(nil, cText)
+	v := newModelFromPointer(unsafe.Pointer(&ret))
+	v.Transform = MatrixIdentity()
+
+	if v.MeshCount > 0 {
+		for _, mesh := range v.GetMeshes() {
+			UploadMesh(&mesh, false)
+		}
+	} else {
+		TraceLog(LogWarning, "MESH: Failed to load model mesh(es) data")
+	}
+
+	if v.MaterialCount == 0 {
+		TraceLog(LogWarning, "MATERIAL: Failed to load model material data, default to white material")
+		v.MaterialCount = 1
+		defaultMat := LoadMaterialDefault()
+		v.Materials = &defaultMat
+
+		if v.MeshMaterial == nil {
+			v.MeshMaterial = new(int32)
+		}
+	}
+
+	return v
+}
+
+// // LoadModel - Load model from file
+// func LoadModel(fileName string) Model {
+// 	cfileName := C.CString(fileName)
+// 	defer C.free(unsafe.Pointer(cfileName))
+// 	ret := C.LoadModel(cfileName)
+// 	v := newModelFromPointer(unsafe.Pointer(&ret))
+// 	return v
+// }
